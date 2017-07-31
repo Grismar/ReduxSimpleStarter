@@ -1,0 +1,24 @@
+body {
+    overflow:hidden;
+}
+
+.full_height {
+    height: 100vh;
+}
+
+.player {
+    height: 100px;
+}
+
+.browser {
+    margin-top: 0px;
+}
+
+.directories {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.files {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
