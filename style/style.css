@@ -1,24 +1,91 @@
 body {
-    overflow:hidden;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .full_height {
-    height: 100vh;
+  height: 100vh;
 }
 
-.player {
-    height: 100px;
+.playback_controls button {
+  width: 18%;
+  padding-top: 18%;
+  margin: 1%;
+  background-size: cover;
+  background-position: center;
+}
+
+button.back {
+  background-image: url("/img/btn/back30.png");
+}
+
+button.play {
+  background-image: url("/img/btn/play.png");
+}
+
+button.pause {
+  background-image: url("/img/btn/pause.png");
+}
+
+button.forward {
+  background-image: url("/img/btn/forward30.png");
+}
+
+button.stop {
+  background-image: url("/img/btn/stop.png");
+}
+
+button.vlc {
+  background-image: url("/img/btn/vlc.png");
+}
+
+button.wmp {
+  background-image: url("/img/btn/wmp.png");
+}
+
+.volume_controls button {
+  width: 18%;
+  padding-top: 18%;
+  margin: 1%;
+  background-size: cover;
+  background-position: center;
+}
+
+.slider_container {
+  width: 80%;
+  display: inline-block;
+  padding: 0 10%;
+}
+
+button.mute {
+  background-image: url("/img/btn/mute.png");
+}
+
+button.sound {
+  background-image: url("/img/btn/sound.png");
+}
+
+button.info {
+  width: 18%;
+  padding-top: 18%;
+  margin: 1%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("/img/btn/info.png");
+}
+
+.current_file {
+  width: 80%;
+  display: inline-block;
+  padding: 0 0 0 5%;
 }
 
 .browser {
-    margin-top: 0px;
-}
-
-.directories {
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-.files {
-    overflow-y: scroll;
-    overflow-x: hidden;
+  margin-top: 0;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

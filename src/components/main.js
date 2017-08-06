@@ -5,7 +5,8 @@ import Home from '../components/home';
 const Main = () => (
     <Router>
         <div>
-            <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/index.html" component={Home}/>
         </div>
     </Router>
 );

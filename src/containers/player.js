@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import PlaybackControls from '../containers/playback_controls';
+import VolumeControls from '../containers/volume_controls';
+import Playing from '../containers/playing';
 
 class Player extends Component {
-    render() {
-        if (!this.props.current_file) {
-            return <div className="player">No file playing.</div>
-        }
-        return (
-            <div className="player">Playing {this.props.current_file}</div>
-        )
-    }
+  render() {
+    return(
+        <div className="player" id="player">
+          <PlaybackControls/>
+          <VolumeControls/>
+          <Playing current_file={this.props.current_file} />
+        </div>
+    )
+  }
 }
 
-function mapStateToProps(state) {
-    return {
-        current_file: state.current_file
-    };
-}
-
-export default connect(mapStateToProps)(Player)
+export default Player;

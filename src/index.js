@@ -9,6 +9,12 @@ import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
+if (process.env.NODE_ENV === 'production') {
+    console.log('production build')
+} else {
+    console.log('development build')
+}
+
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <App />
