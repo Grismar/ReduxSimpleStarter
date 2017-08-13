@@ -9,17 +9,18 @@ import {
   playerForward,
   playerStop,
   pollPlayerState,
-  playerSwitch,
-  playerGetType
+  playerSwitch
 } from '../actions/index';
 
 class PlaybackControls extends Component {
   render() {
     if (this.props.play_state==='unknown') {
       this.props.pollPlayerState();
+    } else {
+      if (this.props.play_state === 'playing' && this.props.player_currenttype === 'unknown') {
+        this.props.pollPlayerState();
+      }
     }
-
-    console.log(this.props.play_state);
 
     return (
         <div className="playback_controls">
@@ -49,24 +50,30 @@ class PlaybackControls extends Component {
           />
           <button
               className={
-                `btn btn-default ${this.props.player_type}`
+                `btn btn-default ${this.props.player_preferredtype} ${this.props.play_state === 'closed' ? '' : 'hidden'}`
               }
-              onClick={() => this.props.playerSwitch(this.props.player_type)}
+              onClick={() => this.props.playerSwitch(this.props.player_preferredtype)}
+          />
+          <button
+              className={
+                `btn btn-default ${this.props.player_currenttype} ${this.props.play_state === 'closed' ? 'hidden' : ''}`
+              }
+              onClick={() => this.props.playerSwitch(this.props.player_preferredtype)}
           />
         </div>
     )
   }
 
   componentWillMount() {
-    console.log('passing here');
-    this.props.playerGetType();
+    this.props.pollPlayerState();
   }
 }
 
 function mapStateToProps(state) {
   return {
     play_state: state.play_state,
-    player_type: state.player_type
+    player_currenttype: state.player_currenttype,
+    player_preferredtype: state.player_preferredtype
   }
 }
 
@@ -80,8 +87,7 @@ function mapDispatchToProps(dispatch) {
     playerForward: playerForward,
     playerStop: playerStop,
     pollPlayerState: pollPlayerState,
-    playerSwitch: playerSwitch,
-    playerGetType: playerGetType
+    playerSwitch: playerSwitch
   }, dispatch)
 }
 

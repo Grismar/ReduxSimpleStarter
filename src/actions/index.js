@@ -12,7 +12,10 @@ export const PLAYER_FORWARD = 'PLAYER_FORWARD';
 export const PLAYER_STOP = 'PLAYER_STOP';
 export const PLAYER_WAITFORKNOWNSTATE = 'PLAYER_WAITFORKNOWNSTATE';
 export const PLAYER_SWITCH = 'PLAYER_SWITCH';
-export const PLAYER_GETTYPE = 'PLAYER_GETTYPE';
+
+export const PLAYER_SKIPTO = 'PLAYER_SKIPTO';
+export const PLAYER_SELECTSUBTITLE = 'PLAYER_SETSUBTITLE';
+export const PLAYER_SELECTAUDIOTRACK = 'PLAYER_SETAUDIOTRACK';
 
 export const VOLUME_TOGGLEMUTE = 'VOLUME_TOGGLEMUTE';
 export const VOLUME_SET = 'VOLUME_SET';
@@ -85,23 +88,20 @@ export function playerStop() {
 
 export function playerSwitch(current) {
   let promise;
-  if (current==='vlc') {
-     promise = axios.get(`${apiHost}/v1/player/wmp`);
+
+  // cycle to next player type
+  if (current==='auto') {
+    promise = axios.get(`${apiHost}/v1/player/wmp`);
   } else {
-     promise = axios.get(`${apiHost}/v1/player/vlc`);
+    if (current==='wmp') {
+      promise = axios.get(`${apiHost}/v1/player/vlc`);
+    } else {
+      promise = axios.get(`${apiHost}/v1/player/auto`);
+    }
   }
 
   return {
     type: PLAYER_SWITCH,
-    payload: promise
-  }
-}
-
-export function playerGetType() {
-  const promise = axios.get(`${apiHost}/v1/player/gettype`);
-
-  return {
-    type: PLAYER_GETTYPE,
     payload: promise
   }
 }
@@ -147,5 +147,32 @@ export function infoDisplay() {
 
   return {
     type: INFO_DISPLAY
+  }
+}
+
+export function skipTo(position) {
+  const promise = axios.get(`${apiHost}/v1/player/skipto?position=${position}`);
+
+  return {
+    type: PLAYER_SKIPTO,
+    payload: promise
+  }
+}
+
+export function setSubtitle(index) {
+  const promise = axios.get(`${apiHost}/v1/player/selectsubtitle?index=${index}`);
+
+  return {
+    type: PLAYER_SELECTSUBTITLE,
+    payload: promise
+  }
+}
+
+export function setAudioTrack(index) {
+  const promise = axios.get(`${apiHost}/v1/player/selectaudiotrack?index=${index}`);
+
+  return {
+    type: PLAYER_SELECTAUDIOTRACK,
+    payload: promise
   }
 }

@@ -9,7 +9,9 @@ export default function (state = initialState, action) {
     case VOLUME_TOGGLEMUTE:
     case VOLUME_SET:
     case VOLUME_GETSTATE:
-      return action.payload.data;
+      if (!action.error) {
+        return action.payload.data;
+      }
   }
 
   return state;
