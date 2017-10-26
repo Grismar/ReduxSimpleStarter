@@ -12,20 +12,21 @@ class AudioTrack extends Component {
   }
 
   _onSelect(option){
-    console.log(option);
     // looking up the index is a bit ugle, alternatively would use object with value/label pairs; more code...
     this.props.setAudioTrack(this.props.audioTracks.tracks.indexOf(option.value));
   }
 
   render() {
     return (
-        <div>
+        <div className="audiotracks control-row">
           { ((this.props.audioTracks!==null) && (this.props.audioTracks.tracks.length > 0)) &&
-          <Dropdown
-              options={this.props.audioTracks.tracks}
-              value={this.props.audioTracks.tracks[this.props.audioTracks.current]}
-              onChange={this._onSelect}
-          />}
+          <div>
+            <Dropdown
+                options={this.props.audioTracks.tracks}
+                value={this.props.audioTracks.tracks[this.props.audioTracks.current]}
+                onChange={this._onSelect}
+            />
+          </div>}
         </div>
     );
   }

@@ -6,36 +6,31 @@ import 'rc-slider/assets/index.css';
 
 import {
   skipTo,
-  pollPlayerState,
   infoDisplay
 } from '../actions/index';
 
 class Position extends Component {
   render() {
     return(
-        <div className="position">
-          <button
-              className="btn btn-default play"
-              onClick={ () => this.props.pollPlayerState() }
-          />
-          <div className="slider_container">
+        <div className="position control-row">
+          <div className="slider-container">
             <Slider
                 min={0} max={Math.floor(this.props.position.duration)}
                 defaultValue={Math.floor(this.props.position.current)}
                 trackStyle={{
                   backgroundColor: 'black',
-                  height: 15
+                  height: 28
                 }}
                 handleStyle={{
                   borderColor: 'black',
-                  height: 28,
-                  width: 28,
-                  marginLeft: -14,
-                  marginTop: -7,
+                  height: 40,
+                  width: 40,
+                  marginLeft: -20,
+                  marginTop: -6,
                   backgroundColor: 'silver',
                 }}
                 railStyle={{
-                  height: 15
+                  height: 28
                 }}
                 onAfterChange={(value) => {
                   this.props.infoDisplay();
@@ -59,7 +54,6 @@ function mapDispatchToProps(dispatch) {
   // it returns its first argument, which is returned by this function, after which it is available on props
   return bindActionCreators({
     skipTo: skipTo,
-    pollPlayerState: pollPlayerState,
     infoDisplay: infoDisplay
   }, dispatch)
 }

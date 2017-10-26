@@ -9,7 +9,8 @@ import {
   playerForward,
   playerStop,
   pollPlayerState,
-  playerSwitch
+  playerSwitch,
+  setBrowsing
 } from '../actions/index';
 
 class PlaybackControls extends Component {
@@ -23,7 +24,11 @@ class PlaybackControls extends Component {
     }
 
     return (
-        <div className="playback_controls">
+        <div className="playback-controls control-row">
+          <button
+              className="btn btn-default refresh"
+              onClick={ () => this.props.pollPlayerState() }
+          />
           <button
               className="btn btn-default back"
               onClick={ () => this.props.playerBack() }
@@ -46,19 +51,13 @@ class PlaybackControls extends Component {
           />
           <button
               className="btn btn-default stop"
-              onClick={() => this.props.playerStop()}
+              onClick={() => { this.props.playerStop(); this.props.setBrowsing(true); }}
           />
           <button
               className={
-                `btn btn-default ${this.props.player_preferredtype} ${this.props.play_state === 'closed' ? '' : 'hidden'}`
+                `btn btn-default ${this.props.player_currenttype}`
               }
-              onClick={() => this.props.playerSwitch(this.props.player_preferredtype)}
-          />
-          <button
-              className={
-                `btn btn-default ${this.props.player_currenttype} ${this.props.play_state === 'closed' ? 'hidden' : ''}`
-              }
-              onClick={() => this.props.playerSwitch(this.props.player_preferredtype)}
+              onClick={() => { this.props.playerSwitch(this.props.player_preferredtype); this.props.setBrowsing(true); }}
           />
         </div>
     )
@@ -87,7 +86,8 @@ function mapDispatchToProps(dispatch) {
     playerForward: playerForward,
     playerStop: playerStop,
     pollPlayerState: pollPlayerState,
-    playerSwitch: playerSwitch
+    playerSwitch: playerSwitch,
+    setBrowsing: setBrowsing
   }, dispatch)
 }
 

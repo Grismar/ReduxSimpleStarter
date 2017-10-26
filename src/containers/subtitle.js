@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Dropdown from 'react-dropdown';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setSubtitle} from '../actions/index';
+import { setSubtitle } from '../actions/index';
 import 'react-dropdown/style.css';
 
 class Subtitle extends Component {
@@ -12,20 +12,21 @@ class Subtitle extends Component {
   }
 
   _onSelect(option){
-    console.log(option);
     // looking up the index is a bit ugle, alternatively would use object with value/label pairs; more code...
     this.props.setSubtitle(this.props.subtitles.tracks.indexOf(option.value));
   }
 
   render() {
     return (
-        <div>
+        <div className="subtitles control-row">
           { ((this.props.subtitles!==null) && (this.props.subtitles.tracks.length > 0)) &&
-          <Dropdown
-              options={this.props.subtitles.tracks}
-              value={this.props.subtitles.tracks[this.props.subtitles.current]}
-              onChange={this._onSelect}
-          />}
+          <div>
+            <Dropdown
+                options={this.props.subtitles.tracks}
+                value={this.props.subtitles.tracks[this.props.subtitles.current]}
+                onChange={this._onSelect}
+            />
+          </div> }
         </div>
     );
   }

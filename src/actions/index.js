@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const apiHost = 'http://cathedral:5000';
+export const apiHost = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ?
+    'http://cathedral:5000' : 'http://' + location.host;
 
 export const SELECT_FILEITEM = 'SELECT_FILEITEM';
 export const FETCH_DIRECTORY = 'FETCH_DIRECTORY';
@@ -22,6 +23,8 @@ export const VOLUME_SET = 'VOLUME_SET';
 export const VOLUME_GETSTATE = 'VOLUME_GETSTATE';
 
 export const INFO_DISPLAY = 'INFO_DISPLAY';
+
+export const SET_BROWSING = 'SET_BROWSING';
 
 export function selectFileItem(urlPath) {
   const promise = axios.get(`${apiHost}/v1/player/play/${urlPath}`);
@@ -174,5 +177,12 @@ export function setAudioTrack(index) {
   return {
     type: PLAYER_SELECTAUDIOTRACK,
     payload: promise
+  }
+}
+
+export function setBrowsing(value) {
+  return {
+    type: SET_BROWSING,
+    payload: value
   }
 }

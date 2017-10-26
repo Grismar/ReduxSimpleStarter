@@ -44,6 +44,7 @@ if (prod) {
   config.plugins.push(new CopyWebpackPlugin([
     { from: 'index.html' },
     { from: 'favicon.ico' },
+    { from: 'manifest.json' },
     { from: 'img/**/*' },
     { from: 'style/**/*' },
   ]));

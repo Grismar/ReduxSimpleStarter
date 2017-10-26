@@ -10,6 +10,7 @@ import position_reducer from './reducer_position';
 import subtitles_reducer from './reducer_subtitles';
 import audiotracks_reducer from './reducer_audiotracks';
 import error_reducer from './reducer_error';
+import browsing_reducer from './reducer_browsing';
 
 const rootReducer = combineReducers({
   browser_items: browser_items_reducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   position: position_reducer,
   subtitles: subtitles_reducer,
   audioTracks: audiotracks_reducer,
-  error: error_reducer
+  error: error_reducer,
+  browsing: browsing_reducer
 });
 
 export default rootReducer;

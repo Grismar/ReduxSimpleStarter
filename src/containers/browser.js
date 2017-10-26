@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {selectFileItem} from "../actions/index";
-import {fetchDirectory} from "../actions/index";
+import { selectFileItem, fetchDirectory, setBrowsing } from "../actions/index";
 import {bindActionCreators} from "redux";
 
 class Browser extends Component {
@@ -38,9 +37,10 @@ class Browser extends Component {
       return (
           <li
               key={fileItem}
-              onClick={() => this.props.selectFileItem(
-                  `${libraryPath}/${fileItem}`
-              )}
+              onClick={() => {
+                this.props.selectFileItem(`${libraryPath}/${fileItem}`);
+                this.props.setBrowsing(false);
+              }}
               className="list-group-item">
             {fileItem}
           </li>
@@ -56,23 +56,30 @@ class Browser extends Component {
     }
 
     const libraryPath = `${this.props.browser_items.library}/${this.props.browser_items.path}`;
+    const shift = this.props.browsing ? -document.getElementById("player").offsetHeight : 0;
 
     return (
-        <div className="browser" style={{height: this.state.parentHeight}}>
+        <div className="browser" style={{height: this.state.parentHeight - shift}}>
           <ul className="list-group col-sm-12">
             {this.renderDirectories(libraryPath)}
             {this.renderFiles(libraryPath)}
+            <br/>
           </ul>
         </div>
     )
   }
 
   updateDimensions() {
-    const e = document.getElementById('player');
-    if (e) {
-      this.setState({parentHeight: window.innerHeight - e.clientHeight})
-    } else {
-      this.setState({parentHeight: window.innerHeight})
+    const player = document.getElementById("player");
+    const screenButton = document.querySelector('.remote-control .btn.screen');
+
+    this.setState({parentHeight: window.innerHeight - (player.offsetHeight + screenButton.offsetHeight) })
+  }
+
+  componentDidUpdate() {
+    const browser = document.querySelector('.browser');
+    if (browser) {
+      browser.scrollTop = 0
     }
   }
 
@@ -82,7 +89,7 @@ class Browser extends Component {
     this.props.fetchDirectory(
         `default`
     );
-  }
+}
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
@@ -91,14 +98,19 @@ class Browser extends Component {
 
 function mapStateToProps(state) {
   return {
-    browser_items: state.browser_items
+    browser_items: state.browser_items,
+    browsing: state.browsing
   }
 }
 
 function mapDispatchToProps(dispatch) {
   // bind the action creator selectFileItem to the dispatch function, which dispatches to reducers
   // it returns its first argument, which is returned by this function, after which it is available on props
-  return bindActionCreators({selectFileItem: selectFileItem, fetchDirectory: fetchDirectory}, dispatch)
+  return bindActionCreators({
+    selectFileItem: selectFileItem,
+    fetchDirectory: fetchDirectory,
+    setBrowsing: setBrowsing
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browser)

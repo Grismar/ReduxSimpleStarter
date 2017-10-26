@@ -10,13 +10,24 @@ body {
   height: 100vh;
 }
 
-.position button,
-.playback_controls button {
-  width: 18%;
-  padding-top: 18%;
+.control-row {
+  display: block;
+  clear: both;
+  overflow: auto;
+}
+
+.subtitles, .audiotracks {
+  overflow: visible !important;
+}
+
+.control-row button {
+  width: 14.66%;
+  padding-top: 12.66%;
   margin: 1%;
   background-size: cover;
   background-position: center;
+  display: block;
+  float: left;
 }
 
 .error {
@@ -57,18 +68,39 @@ button.vlc {
   background-image: url("/img/btn/vlc.png");
 }
 
-.volume_controls button {
-  width: 18%;
-  padding-top: 18%;
-  margin: 1%;
-  background-size: cover;
-  background-position: center;
+button.audio {
+  background-image: url("/img/btn/audio.png");
 }
 
-.slider_container {
+button.subtitle {
+  background-image: url("/img/btn/subtitle.png");
+}
+
+button.screen {
+  background-image: url("/img/btn/screen.png");
+}
+
+button.browse {
+  background-image: url("/img/btn/browse.png");
+}
+
+button.remote {
+  background-image: url("/img/btn/remote.png");
+}
+
+button.refresh {
+  background-image: url("/img/btn/refresh.png");
+}
+
+button.fullscreen {
+  background-image: url("/img/btn/fullscreen.png");
+}
+
+.slider-container {
   width: 80%;
-  display: inline-block;
-  padding: 0 10%;
+  display: block;
+  float: left;
+  padding: 3.6% 14px 0 28px;
 }
 
 button.mute {
@@ -80,23 +112,33 @@ button.sound {
 }
 
 button.info {
-  width: 18%;
-  padding-top: 18%;
-  margin: 1%;
-  background-size: cover;
-  background-position: center;
   background-image: url("/img/btn/info.png");
 }
 
-.current_file {
+.current-file {
   width: 80%;
   display: inline-block;
   padding: 0 0 0 5%;
 }
 
+.player {
+  display: block;
+  clear: both;
+}
+
 .browser {
+  display: block;
+  clear: both;
   margin-top: 0;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.browser ul {
+  margin: 1%;
+}
+
+.Dropdown-root {
+  width: 98% !important;
 }
